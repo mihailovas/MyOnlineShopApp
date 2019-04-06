@@ -1,0 +1,71 @@
+﻿@model MyOnlineShop.Models.ViewModel.ProductVM
+
+
+@{
+    ViewBag.Title = Model.Name;
+}
+<h2>@Model.Name</h2>
+<br />
+@Html.ActionLink("Go back to list of products", "Products",null, new { @class = "btn btn-default" })
+<br />
+<br />
+<div class="row">
+    <div class="col-xs-12 col-md-4">
+        <img src="@Model.ProductURL" style=" max-height:400px;" />
+    </div>
+    <div class="col-xs-12 col-md-8">
+        <i><b>@Html.DisplayFor(model => model.Description)</b></i>
+        <br />
+        <b>$@Html.DisplayFor(model => model.Price)</b>
+        <br />
+
+        <div class="addtocart">
+            <a href="#" class="addtocart btn btn-primary">Add to cart</a>
+            <span class="loader">
+                <img src="~/images/ajax-loader.gif" />
+            </span>
+            <span class="ajaxmsg">The product has been added to your cart.</span>
+        </div>
+
+    </div>
+</div>
+<hr />
+
+
+@section Scripts {
+
+
+    <script>
+    $(function () {
+
+
+
+        /*
+        * Add to cart
+        */
+
+        $("a.addtocart").click(function (e) {
+            e.preventDefault();
+
+            $("span.loader").addClass("ib");
+
+            var url = "/cart/AddToCartPartial";
+
+            $.get(url, { id: @Model.Id }, function (data) {
+                $(".ajaxcart").html(data);
+            }).done(function () {
+                $("span.loader").removeClass("ib");
+                $("span.ajaxmsg").addClass("ib");
+                setTimeout(function () {
+                    $("span.ajaxmsg").fadeOut("fast");
+                    $("span.ajaxmsg").removeClass("ib");
+                }, 1000);
+            });
+        });
+
+        ////////////////////////////////////////////////////////
+
+    });
+    </script>
+
+}

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<MyOnlineShop.Models.ViewModel.CategoryVM>
+
+@{
+    ViewBag.Title = "Categories";
+}
+
+<h2>Categories</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        @Html.ActionLink("Add new category", "AddNewCategory",null, new { @class = "btn btn-default" })
+    </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @if (!Request.IsAuthenticated)
+            {
+            <td>
+                @Html.ActionLink(item.Name, "Category", new { name = item.Name })
+
+            </td>
+            }
+            else
+            {
+                <td>
+                    @Html.ActionLink(item.Name, "Products", new { catId= item.Id })
+                </td>
+            }
+            <td>
+                <img src="@item.CategoryURL" style="max-width:100px ; max-height:100px;" />
+            </td>
+            @if (User.IsInRole("Admin"))
+            {
+                <td>
+                    @Html.ActionLink("Edit", "EditCategory", new { id = item.Id }, new { @class = "btn btn-default" }) 
+                    @Html.ActionLink("Delete", "DeleteCategory", new { id = item.Id }, new { @class = "btn btn-default" }) 
+
+                </td>
+            }
+        </tr>
+    }
+
+</table>

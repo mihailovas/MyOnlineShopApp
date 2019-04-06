@@ -1,0 +1,66 @@
+﻿@model MyOnlineShop.Models.ViewModel.ProductVM
+
+@{
+    ViewBag.Title = "Delete Product";
+}
+
+<h2>Delete Product</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            <label class="control-label col-md-2">Picture</label>
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.ProductURL)" style="max-width:200px ; max-height:100px;" />
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" />
+            <br />
+            @Html.ActionLink("Back to products list", "Products",null, new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

@@ -1,0 +1,41 @@
+﻿@model MyOnlineShop.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Category</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Name:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Image:
+        </dt>
+
+        <dd>
+            <img src="@Html.DisplayFor(model => model.CategoryURL)" style="max-width:200px ; max-height:100px;" />
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> 
+            @Html.ActionLink("Back to List", "Categories" ,null , new { @class = "btn btn-default" })
+        </div>
+    }
+</div>

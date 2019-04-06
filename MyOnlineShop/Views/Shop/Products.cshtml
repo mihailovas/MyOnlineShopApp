@@ -1,0 +1,160 @@
+﻿@model IEnumerable<MyOnlineShop.Models.ViewModel.ProductVM>
+
+@{
+    ViewBag.Title = "Products";
+}
+
+
+<h2>Products</h2>
+<h4>Choose a category</h4>
+<select id="SelectCategory" class="custom-select" name="SelectCategory">
+    <option value="0">All</option>
+    @foreach (var item in ViewBag.Categories)
+    {
+        if (ViewBag.SelectedCat == item.Value)
+        {
+            <option selected="selected" value="@item.Value">@item.Text</option>
+        }
+        else
+        {
+            <option value="@item.Value">@item.Text</option>
+
+        }
+    }
+</select>
+
+@if (User.IsInRole("Admin"))
+{
+    <br />
+    <br />
+    <p>
+        @Html.ActionLink("Add new product", "AddProduct" ,null, new { @class = "btn btn-default" })
+    </p>
+}
+<table id="products" class="table">
+    <thead>
+        <tr>
+            <th >
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Picture
+            </th>
+            <th>
+
+            </th>
+            @if (User.IsInRole("Admin"))
+            {
+
+                <th>
+
+                </th>
+            }
+
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+
+        <tr>
+            <td style="color:#0094ff ; ">
+               
+                <a href="/shop/product-details/@product.Name">  <b>@product.Name</b> </a>
+
+            </td>
+            <td >
+                <b>$ @product.Price</b>
+            </td>
+            <td>
+
+                <a href="/shop/product-details/@product.Name"> <img src="@product.ProductURL" style="max-width:200px ; max-height:100px;" /></a>
+
+
+            </td>
+            <td>
+
+
+
+                <div class="addtocart">
+                    <a href="#" class="addtocart button" data-id="@product.Id">Add to cart</a>
+                    <span class="loader">
+                        <img src="~/images/ajax-loader.gif" style="max-width:50px" />
+                    </span>
+                    <span class="ajaxmsg">The product has been added to your cart.</span>
+                </div>
+            </td>
+           
+
+            
+            @if (User.IsInRole("Admin"))
+            {
+            <td>
+                @Html.ActionLink("Edit", "EditProduct", new { id = product.Id }, new { @class = "btn btn-default" }) 
+
+                @Html.ActionLink("Delete", "DeleteProduct", new { id = product.Id }, new { @class = "btn btn-default" })
+            </td>
+            }
+          
+
+
+        </tr>
+        }
+
+    </tbody>
+</table>
+
+
+
+
+
+@section Scripts{
+    <script src="http://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <script>
+
+       $(function () {
+            /* select products from a specified category*/
+
+            $("#SelectCategory").on("change", function () {
+                var url = $(this).val();
+
+                if (url) {
+                    window.location = "/shop/Products?catId=" + url;
+                }
+                return false;
+            });
+         /*data table sorting and such */
+           $(document).ready(function () {
+               $("#products").DataTable();
+           });
+
+           /*add to cart*/
+
+           $("a.addtocart").click(function (e) {
+               e.preventDefault();
+               Pid = $(this).data("id");
+            $("span.loader").addClass("ib");
+             
+            var url = "/cart/AddToCartPartial";
+
+               $.get(url, { id: Pid }, function (data) {
+                $(".ajaxcart").html(data);
+            }).done(function () {
+                $("span.loader").removeClass("ib");
+                $("span.ajaxmsg").addClass("ib");
+                setTimeout(function () {
+                    $("span.ajaxmsg").fadeOut("fast");
+                    $("span.ajaxmsg").removeClass("ib");
+                }, 1000);
+            });
+        });
+
+       });
+
+    </script>
+
+}

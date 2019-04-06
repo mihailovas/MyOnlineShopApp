@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title MyOnlineShop.</h2>
+
+<div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>
+                <b>
+                    This page is made by Sofija Mihailova, student at the Faculty
+                    of Computer Science and Engineering in Skopje as assignment for the
+                    course Internet Technologies.
+                </b>
+                <br />
+            </p>
+            <br />
+            @Html.ActionLink("Go back to Home page", "Index", "Home", null, null, null, null, new { @class = "paginate_button " })
+
+
+        </div>
+
+        <div class="col-md-4">
+            <p><img src="~/images/finki-logo.png" style="max-width:500px ; max-height:250px ; padding-left:50px;"  /></p>
+        </div>
+
+        <div class="col-md-4">
+            <p><img src="~/images/logo1.png" style="max-width:600px ; max-height:250px" /></p>
+        </div>
+    </div>
+</div>
+

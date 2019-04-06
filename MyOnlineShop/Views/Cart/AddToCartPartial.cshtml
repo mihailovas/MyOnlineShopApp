@@ -1,0 +1,5 @@
+﻿@model MyOnlineShop.Models.ViewModel.CartVM
+
+ Your cart: @Model.Quantity item(s) - $ @Model.Price
+<br />
+@Html.ActionLink("Checkout", "Index", null, new { @class = "button" })

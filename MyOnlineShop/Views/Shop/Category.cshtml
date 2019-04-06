@@ -1,0 +1,65 @@
+﻿@model IEnumerable<MyOnlineShop.Models.ViewModel.ProductVM>
+
+@{
+    ViewBag.Title = "Category";
+}
+
+<h2>@ViewBag.CategoryName</h2>
+
+<p>
+    @Html.ActionLink("Go back to list of categories", "Categories" , null, new { @class = "btn btn-default" })
+</p>
+<br />
+<h4> List of @ViewBag.CategoryName </h4>
+@if (!Request.IsAuthenticated)
+{
+ <p>
+    This is <b>view-only</b> page.<br />
+    You need to be <b>signed in</b> to shop for products :)
+ </p>
+}
+
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Picture
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+
+              <b>@Html.DisplayFor(modelItem => item.Name)</b>
+
+        </td>
+        <td>
+            <b>$@Html.DisplayFor(modelItem => item.Price)</b>
+        </td>
+        <td>
+            <i>@Html.DisplayFor(modelItem => item.Description)</i>
+        </td>
+        <td>
+            <img src="@item.ProductURL" style="max-width:200px ; max-height:100px;" />
+        </td>
+        @*<td>
+
+            @Html.ActionLink("Details", "Details", new { id = item.Id })
+
+        </td>*@
+    </tr>
+    }
+
+</table>

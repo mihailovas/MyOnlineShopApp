@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Thank you!";
+}
+
+
+
+<div>
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Come back again for whatever you need!</h2>
+            <p>
+                <b>Your order has been sent! </b><br />
+                @DateTime.Now<br />
+
+                @Html.ActionLink("Go back to products list", "Products", "Shop", null, null, null, null, new { @class = "btn btn-primary " })
+
+                @Html.ActionLink("Go back to Home page", "Index", "Home", null, null, null, null, new { @class = "btn btn-primary " })
+
+            </p>
+        </div>
+        <div class="col-md-4">
+            <p><img src="~/images/hand-drawn-thank-you-composition-with-confetti_23-2147826488.jpg" style="max-width:600px; max-height:400px" /></p>
+        </div>
+        <div class="col-md-4">
+            <p><img src="~/images/logo1.png" style="max-width:600px ; max-height:250px" /></p>
+        </div>
+
+    </div>
+</div>
